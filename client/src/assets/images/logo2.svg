@@ -1,0 +1,9 @@
+<svg width="300" height="80" viewBox="0 0 300 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Left box with centered "S" -->
+  <rect width="75" height="75" rx="15" fill="#2CB1BC"/>
+  <text x="37.5" y="55" text-anchor="middle" font-family="Arial" font-size="50" fill="white">S</text>
+
+  <!-- Bold "smartEvent" text -->
+  <text x="90" y="55" font-family="Arial" font-size="30" font-weight="bold" fill="#2CB1BC">smartEvent</text>
+</svg>
+
