@@ -3,7 +3,7 @@ import styled from "styled-components";
 import Wrapper from "../assets/wrappers/LandingPage";
 import main from "../assets/images/main.svg";
 import { Link, useRouteError } from "react-router-dom";
-import {Logo} from '../components'
+import { Logo } from "../components";
 
 const Landing = () => {
   return (
@@ -14,7 +14,7 @@ const Landing = () => {
       <div className="container page">
         <div className="info">
           <h1>
-            Plan <span>Your</span> Event Easily
+            Plan Your Event <span>Easily</span>
           </h1>
           <p>
             I'm baby dreamcatcher lyft four loko heirloom ethical. Food truck
