@@ -12,6 +12,7 @@ import {
   AllEvents,
   Profile,
   Admin,
+  Chat,
 } from './pages';
 
 
@@ -71,7 +72,10 @@ const router = createBrowserRouter([
             path: 'admin',
             element: <Admin />,
           },
-          
+          {
+            path: 'chat',
+            element: <Chat />,
+          },
         ]
       },
     ],
