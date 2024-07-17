@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const Wrapper = styled.button`
+const Wrapper = styled.div`
   background: transparent;
   border-color: transparent;
   width: 3.5rem;
@@ -8,6 +8,7 @@ const Wrapper = styled.button`
   display: grid;
   place-items: center;
   cursor: pointer;
+
   .toggle-icon {
     font-size: 1.15rem;
     color: var(--text-color);

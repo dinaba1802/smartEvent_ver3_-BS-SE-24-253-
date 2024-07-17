@@ -5,8 +5,13 @@ const Wrapper = styled.nav`
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 0px 0px rgba(0, 0, 0, 0.1);
   background: var(--background-secondary-color);
+  .logo {
+    display: flex;
+    align-items: center;
+    width: 100px;
+  }
   .nav-center {
     display: flex;
     width: 90vw;
@@ -22,21 +27,18 @@ const Wrapper = styled.nav`
     display: flex;
     align-items: center;
   }
-  .logo-text {
-    display: none;
-  }
-  .logo {
-    display: flex;
-    align-items: center;
-    width: 100px;
-  }
   .btn-container {
     display: flex;
     align-items: center;
   }
+
+  .logo-text {
+    display: none;
+  }
   @media (min-width: 992px) {
     position: sticky;
     top: 0;
+
     .nav-center {
       width: 90%;
     }
