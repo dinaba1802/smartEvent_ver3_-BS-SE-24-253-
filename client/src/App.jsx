@@ -7,9 +7,9 @@ import {
   Login,
   DashboardLayout,
   Error,
-  AddJob,
+  AddEvent,
   Stats,
-  AllJobs,
+  AllEvents,
   Profile,
   Admin,
 } from './pages';
@@ -53,15 +53,15 @@ const router = createBrowserRouter([
         children:[
           {
             index:true,
-            element:<AddJob/>
+            element:<AddEvent/>
           },
           {
             path: 'stats',
             element: <Stats />,
           },
           {
-            path: 'all-jobs',
-            element: <AllJobs />,
+            path: 'all-events',
+            element: <AllEvents />,
           },
           {
             path: 'profile',
