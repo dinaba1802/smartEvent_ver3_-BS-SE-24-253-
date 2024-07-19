@@ -48,6 +48,7 @@ app.get('/api/v3/events/:id', (req, res) => {
   const { id } = req.params;
   const event = events.find((event) => event.id === id);
   if (!event) {
+    throw new Error('no event with that id');
     return res.status(404).json({ msg: `no event with id ${id}` });
   }
   res.status(200).json({ event });
