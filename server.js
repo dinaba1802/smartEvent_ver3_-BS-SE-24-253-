@@ -1,3 +1,5 @@
+import 'express-async-errors';
+
 import * as dotenv from 'dotenv';
 dotenv.config();
 import express from 'express';
@@ -6,6 +8,7 @@ import morgan from 'morgan';
 //routers
 import eventRouter from './routes/eventRouter.js';
 import mongoose from 'mongoose';
+
 
 
   

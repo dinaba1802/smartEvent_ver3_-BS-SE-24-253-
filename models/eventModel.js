@@ -1,25 +1,20 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
-const JobSchema = new mongoose.Schema(
-    {
-      event_name: String,
-      event_type: String,
-      jobStatus: {
-        type: String,
-        enum: ['interview', 'declined', 'pending'],
-        default: 'pending',
-      },
-      jobType: {
-        type: String,
-        enum: ['full-time', 'part-time', 'internship'],
-        default: 'full-time',
-      },
-      jobLocation: {
-        type: String,
-        default: 'my city',
-      },
+const EventSchema = new mongoose.Schema(
+  {
+    event_name: String,
+    event_type: String,
+    eventKind: {
+      type: String,
+      enum: ['wedding', 'birthday', 'meeting-event'],
+      default: 'wedding',
     },
-    { timestamps: true }
-  );
-  
-  export default mongoose.model('Job', JobSchema);
+    eventLocation: {
+      type: String,
+      default: 'my city..',
+    },
+  },
+  { timestamps: true }
+);
+
+export default mongoose.model('Event', EventSchema);
