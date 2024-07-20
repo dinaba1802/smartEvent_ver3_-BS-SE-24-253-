@@ -1,6 +1,8 @@
 import { nanoid } from 'nanoid';
 import Event from '../models/eventModel.js';
 
+
+
   let events = [
     { id: nanoid(), event_name: 'Amit', event_type: 'Wedding Hall' },
     { id: nanoid(), event_name: 'Dina', event_type: 'DJ' }
@@ -9,12 +11,12 @@ import Event from '../models/eventModel.js';
 
 export const getAllEvents = async (req, res) => {
   const events = await Event.find({});
-  res.status(200).json({ events });
+  res.status(StatusCodes.OK).json({ events });
 };
 
 export const createEvent = async (req, res) => {
     const event = await Event.create( req.body );
-    res.status(201).json({ event });
+    res.status(StatusCodes.CREATED).json({ event });
   }
 
 export const getEvent = async (req, res) => {
@@ -23,7 +25,7 @@ export const getEvent = async (req, res) => {
   if (!event) {
     return res.status(404).json({ msg: `no event with id ${id}` });
   }
-  res.status(200).json({ event });
+  res.status(StatusCodes.OK).json({ event });
 };
 
 export const updateEvent = async (req, res) => {
@@ -36,7 +38,7 @@ export const updateEvent = async (req, res) => {
   if (!updatedEvent) {
     return res.status(404).json({ msg: `no event with id ${id}` });
   }
-  res.status(200).json({ event: updatedEvent });
+  res.status(StatusCodes.OK).json({ msg: 'event modified', event: updatedEvent });
 };
 
   export const deleteEvent = async (req, res) => {
@@ -46,5 +48,5 @@ export const updateEvent = async (req, res) => {
   if (!removedEvent) {
     return res.status(404).json({ msg: `no event with id ${id}` });
   }
-  res.status(200).json({ event: removedEvent });
+  res.status(StatusCodes.OK).json({ msg: 'event deleted', event: removedEvent });
 };
