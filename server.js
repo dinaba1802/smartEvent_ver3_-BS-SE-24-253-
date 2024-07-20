@@ -10,9 +10,11 @@ import eventRouter from './routes/eventRouter.js';
 import mongoose from 'mongoose';
 //middleware
 import errorHandlerMiddleware from './middleware/errorHandlerMiddleware.js';
+import { body, validationResult } from 'express-validator';
+
+//temp
 
 
-  
 //log the info about our request
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
@@ -21,12 +23,11 @@ if (process.env.NODE_ENV === 'development') {
 app.use(express.json());
 
 
-app.post('/api/v3/test', (req, res) => {
-  const { name } = req.body;
-  res.json({ msg: `hello ${name}` });
-});
-
 app.use('/api/v3/events',eventRouter);
+
+app.use('*', (req, res) => {
+  res.status(404).json({msg: 'not found'})
+});
 
 app.use(errorHandlerMiddleware);
 
