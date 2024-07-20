@@ -5,13 +5,16 @@ import { MdQueryStats } from 'react-icons/md';
 import { FaWpforms } from 'react-icons/fa';
 import { ImProfile } from 'react-icons/im';
 import { MdAdminPanelSettings } from 'react-icons/md';
+import { IoChatbubblesOutline } from "react-icons/io5";
+
 
 const links = [
-  { text: 'add job', path: '.', icon: <FaWpforms /> },
-  { text: 'all jobs', path: 'all-jobs', icon: <MdQueryStats /> },
+  { text: 'add event', path: '.', icon: <FaWpforms /> },
+  { text: 'all events', path: 'all-events', icon: <MdQueryStats /> },
   { text: 'stats', path: 'stats', icon: <IoBarChartSharp /> },
   { text: 'profile', path: 'profile', icon: <ImProfile /> },
   { text: 'admin', path: 'admin', icon: <MdAdminPanelSettings /> },
+  { text: 'chat', path: 'chat', icon: <IoChatbubblesOutline />},
 ];
 
 export default links;
