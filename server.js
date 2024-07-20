@@ -8,7 +8,8 @@ import morgan from 'morgan';
 //routers
 import eventRouter from './routes/eventRouter.js';
 import mongoose from 'mongoose';
-
+//middleware
+import errorHandlerMiddleware from './middleware/errorHandlerMiddleware.js';
 
 
   
@@ -20,20 +21,17 @@ if (process.env.NODE_ENV === 'development') {
 app.use(express.json());
 
 
-app.post('/', (req, res) => {
-  console.log(req);
-  res.json({ message: 'Data received', data: req.body });
+app.post('/api/v3/test', (req, res) => {
+  const { name } = req.body;
+  res.json({ msg: `hello ${name}` });
 });
 
 app.use('/api/v3/events',eventRouter);
 
-app.use((err, req, res, next) => {
-  console.log(err);
-  res.status(500).json({ msg: 'something went wrong' });
-});
+app.use(errorHandlerMiddleware);
 
 //access dot env var
-const port = process.env.PORT || 5100
+const port = process.env.PORT || 5100;
 
 try {
   await mongoose.connect(process.env.MONGO_URL);
