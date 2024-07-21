@@ -9,6 +9,7 @@ import { StatusCodes } from 'http-status-codes';
  // ];
 
 export const getAllEvents = async (req, res) => {
+  console.log(req);
   const events = await Event.find({});
   res.status(StatusCodes.OK).json({ events });
 };
