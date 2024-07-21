@@ -2,13 +2,14 @@ import { nanoid } from 'nanoid';
 import Event from '../models/eventModel.js';
 import { StatusCodes } from 'http-status-codes';
 
-  let events = [
-    { id: nanoid(), event_name: 'Amit', event_type: 'Wedding Hall' },
-    { id: nanoid(), event_name: 'Dina', event_type: 'DJ' }
+  //let events = [
+    //{ id: nanoid(), event_name: 'Amit', event_type: 'Wedding Hall' },
+    //{ id: nanoid(), event_name: 'Dina', event_type: 'DJ' }
     //    { id: nanoid(), company: 'Apple', position: 'Back-end' },
-  ];
+ // ];
 
 export const getAllEvents = async (req, res) => {
+  console.log(req);
   const events = await Event.find({});
   res.status(StatusCodes.OK).json({ events });
 };

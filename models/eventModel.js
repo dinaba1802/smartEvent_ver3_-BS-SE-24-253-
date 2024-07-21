@@ -13,6 +13,10 @@ const EventSchema = new mongoose.Schema(
       type: String,
       default: 'my city..',
     },
+    createdBy:{
+      type: mongoose.Types.ObjectId,
+      ref: 'User',
+    },
     image: {
       type: String, // Store the image as a Base64 string
       required: false,
