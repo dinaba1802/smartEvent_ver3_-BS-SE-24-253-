@@ -13,6 +13,7 @@ import authRouter from './routes/authRouter.js';
 
 //middleware
 import errorHandlerMiddleware from './middleware/errorHandlerMiddleware.js';
+import { authenticateUser } from './middleware/authMiddleware.js';
 import { body, validationResult } from 'express-validator';
 
 
@@ -27,7 +28,7 @@ if (process.env.NODE_ENV === 'development') {
 app.use(express.json());
 
 
-app.use('/api/v3/events', eventRouter);
+app.use('/api/v3/events', authenticateUser, eventRouter);
 app.use('/api/v3/auth', authRouter);
 
 
