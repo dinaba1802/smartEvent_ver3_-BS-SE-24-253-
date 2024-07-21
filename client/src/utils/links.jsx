@@ -9,8 +9,8 @@ import { IoChatbubblesOutline } from "react-icons/io5";
 
 
 const links = [
-  { text: 'add event', path: '.', icon: <FaWpforms /> },
-  { text: 'all events', path: 'all-events', icon: <MdQueryStats /> },
+  { text: 'add Business', path: '.', icon: <FaWpforms /> },
+  { text: 'all Businesses', path: 'all-events', icon: <MdQueryStats /> },
   { text: 'stats', path: 'stats', icon: <IoBarChartSharp /> },
   { text: 'profile', path: 'profile', icon: <ImProfile /> },
   { text: 'admin', path: 'admin', icon: <MdAdminPanelSettings /> },
