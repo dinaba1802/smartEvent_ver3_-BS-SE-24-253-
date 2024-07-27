@@ -22,6 +22,7 @@ const UserSchema = new mongoose.Schema({
     businessAddress: { type: String, required: false },
     businessType: { type: String, required: false },
   },
+  
 });
 
 export default mongoose.model("User", UserSchema);

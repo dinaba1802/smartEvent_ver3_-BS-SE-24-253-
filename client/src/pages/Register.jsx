@@ -35,6 +35,11 @@ const Register = () => {
         <FormRow type="text" name="username" />
         <FormRow type="password" name="password" />
 
+         
+
+        
+
+
         <button type="submit" className="btn btn-block">
           Create user
         </button>
