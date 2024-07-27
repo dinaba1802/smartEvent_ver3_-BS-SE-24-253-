@@ -16,16 +16,17 @@ const Landing = () => {
            <span>smartEvent</span> app
           </h1>
           <p>
-            We are smartEvent
-            bottle single-origin coffee chia. Aesthetic post-ironic venmo,
-            quinoa lo-fi tote bag adaptogen everyday carry meggings +1 brunch
-            narwhal.
+            At smartEvent, we understand that every event is unique.
+            Register or login to join our app, that will help you organize the best event.
+            You can connect to the system as a user interested in planning an event, or as 
+            a user interested in offering his services as an event hall owner, DJ, designer 
+            and any other business that contributes to the event planning industry.
           </p>
           <Link to='/register' className='btn register-link'>
             Register
           </Link>
           <Link to='/login' className='btn'>
-            Login / Demo User
+            Login
           </Link>
         </div>
         <img src={main} alt='job hunt' className='img main-img' />

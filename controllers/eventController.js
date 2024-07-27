@@ -9,12 +9,12 @@ import { StatusCodes } from 'http-status-codes';
  // ];
 
 export const getAllEvents = async (req, res) => {
-  console.log(req);
-  const events = await Event.find({});
+  const events = await Event.find({createdBy:req.user.userId});
   res.status(StatusCodes.OK).json({ events });
 };
 
 export const createEvent = async (req, res) => {
+    req.body.createdBy = req.user.userId;
     const event = await Event.create( req.body );
     res.status(StatusCodes.CREATED).json({ event });
   }
