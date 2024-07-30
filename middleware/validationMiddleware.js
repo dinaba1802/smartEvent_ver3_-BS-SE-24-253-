@@ -1,5 +1,5 @@
 import { body, param, validationResult } from 'express-validator';
-import { BadRequestError, NotFoundError } from '../errors/customErrors.js';
+import { BadRequestError, NotFoundError, UnauthenticatedError } from '../errors/customErrors.js';
 import { EVENT_KIND } from '../utils/constants.js';
 import Event from '../models/eventModel.js'
 import User from '../models/UserModel.js';
@@ -15,6 +15,10 @@ const withValidationErrors = (validateValues) => {
           const errorMessages = errors.array().map((error) => error.msg);
           if (errorMessages[0].startsWith('no job')) {
             throw new NotFoundError(errorMessages);
+          }
+          if(errorMessages[0].startsWith('not authorized')){
+            throw new UnauthenticatedError('not authorized to access this route')
+
           }
           throw new BadRequestError(errorMessages);
         }
@@ -40,6 +44,10 @@ const withValidationErrors = (validateValues) => {
       if (!isValidId) throw new BadRequestError('invalid MongoDB id');
       const event = await Event.findById(value);
       if (!event) throw new NotFoundError(`no event with id : ${value}`);
+      const isAdmin = req.user.role === 'admin'
+      const isOwner = req.user.userId === JsonWebTokenError.createBy.toString()
+      if(isAdmin && isOwner) 
+        throw new UnauthenticatedError('not authorized to access this route')
     }),
   ]);
 
