@@ -15,7 +15,7 @@ import authRouter from "./routes/authRouter.js";
 //middleware
 import errorHandlerMiddleware from "./middleware/errorHandlerMiddleware.js";
 import { authenticateUser } from "./middleware/authMiddleware.js";
-import { body, validationResult } from "express-validator";
+import { body, param, validationResult } from "express-validator";
 
 //temp
 app.use(cors());
