@@ -1,4 +1,4 @@
-import { nanoid } from 'nanoid';
+//import { nanoid } from 'nanoid';
 import Event from '../models/eventModel.js';
 import { StatusCodes } from 'http-status-codes';
 

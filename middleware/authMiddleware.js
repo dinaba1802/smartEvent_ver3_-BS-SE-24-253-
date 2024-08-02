@@ -6,7 +6,7 @@ export const authenticateUser = async (req, res, next) => {
 
   if (!token) throw new UnauthenticatedError("authentication invalid");
 
-  token = token.replace("Bearer ");
+  token = token.replace("Bearer ", "");
 
   try {
     const { userId, role } = verifyJWT(token);
