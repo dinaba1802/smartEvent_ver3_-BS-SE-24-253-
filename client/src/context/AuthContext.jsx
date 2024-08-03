@@ -3,18 +3,36 @@ import * as authService from "../services/auth.service";
 const AuthContext = createContext(null);
 
 export const AuthContextProvider = ({ children }) => {
-  const [token, setToken] = useState();
+  const [token, setToken] = useState(localStorage.getItem("token"));
   const [user, setUser] = useState();
+  const [loading, setLoading] = useState(true);
 
-  const register = (registerForm) => {
-    const result = authService.register(registerForm);
+  const register = async (registerForm) => {
+    const result = await authService.register(registerForm);
+    return result;
   };
 
-  const login = (registerForm) => {
-    const token = authService.login(registerForm);
+  const updateBusinessInformation = async (businessInformation, image) => {
+    if (image) {
+      // upload image
+      const { urls } = await authService.uploadImage(image);
+      businessInformation.businessImages = urls;
+    }
+    const { data: user } = await authService.updateBusinessInformation(
+      businessInformation
+    );
+    setUser(user);
+    return user;
+  };
+
+  const login = async (loginForm) => {
+    const token = await authService.login(loginForm);
+    console.log(token);
     setToken(token);
+    setLoading(true);
+    return token;
   };
-  const logout = (registerForm) => {
+  const logout = () => {
     localStorage.removeItem("token");
     setToken(null);
     setUser(null);
@@ -23,10 +41,19 @@ export const AuthContextProvider = ({ children }) => {
   useEffect(() => {
     if (token) {
       const fetchUser = async () => {
-        const user = authService.me();
-        setUser(user);
+        try {
+          const { data: user } = await authService.me();
+          console.log(user);
+          setUser(user);
+        } catch (e) {
+          console.log(e);
+        } finally {
+          setLoading(false);
+        }
       };
       fetchUser();
+    } else {
+      setLoading(false);
     }
   }, [token]);
   return (
@@ -36,6 +63,8 @@ export const AuthContextProvider = ({ children }) => {
         token,
         register,
         login,
+        updateBusinessInformation,
+        loading,
         logout,
       }}
     >

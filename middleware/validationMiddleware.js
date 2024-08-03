@@ -13,11 +13,11 @@ const withValidationErrors = (validateValues) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
           const errorMessages = errors.array().map((error) => error.msg);
-          if (errorMessages[0].startsWith('no job')) {
+          if (errorMessages[0].startsWith('no event')) {
             throw new NotFoundError(errorMessages);
           }
           if(errorMessages[0].startsWith('not authorized')){
-            throw new UnauthenticatedError('not authorized to access this route')
+            throw new UnauthenticatedError('not authorized to access this route');
 
           }
           throw new BadRequestError(errorMessages);
@@ -39,15 +39,15 @@ const withValidationErrors = (validateValues) => {
 
 
   export const validateIdParam = withValidationErrors([
-    param('id').custom(async (value) => {
+    param('id').custom(async (value, { req }) => {
       const isValidId = mongoose.Types.ObjectId.isValid(value);
       if (!isValidId) throw new BadRequestError('invalid MongoDB id');
       const event = await Event.findById(value);
       if (!event) throw new NotFoundError(`no event with id : ${value}`);
-      const isAdmin = req.user.role === 'admin'
-      const isOwner = req.user.userId === JsonWebTokenError.createBy.toString()
-      if(isAdmin && isOwner) 
-        throw new UnauthenticatedError('not authorized to access this route')
+      const isAdmin = req.user.role === 'admin';
+      const isOwner = req.user.userId === event.createBy.toString();
+      if(!isAdmin && !isOwner) 
+        throw new UnauthenticatedError('not authorized to access this route');
     }),
   ]);
 

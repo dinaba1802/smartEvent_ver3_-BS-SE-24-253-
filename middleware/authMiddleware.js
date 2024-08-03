@@ -3,10 +3,9 @@ import { verifyJWT } from "../utils/tokenUtils.js";
 
 export const authenticateUser = async (req, res, next) => {
   let token = req.headers["Authorization"] || req.headers["authorization"];
-
   if (!token) throw new UnauthenticatedError("authentication invalid");
 
-  token = token.replace("Bearer ");
+  token = token.replace("Bearer ", "");
 
   try {
     const { userId, role } = verifyJWT(token);
@@ -22,6 +21,19 @@ export const authenticateAdminUser = async (req, res, next) => {
     const role = req.user.role;
 
     if (role !== "admin")
+      throw new UnauthenticatedError("authorization invalid");
+    next();
+  } catch (error) {
+    throw new UnauthenticatedError("authentication invalid");
+  }
+};
+
+export const authenticateBusinessUser = async (req, res, next) => {
+  try {
+    const role = req.user.role;
+
+    console.log(role);
+    if (role !== "business")
       throw new UnauthenticatedError("authorization invalid");
     next();
   } catch (error) {
