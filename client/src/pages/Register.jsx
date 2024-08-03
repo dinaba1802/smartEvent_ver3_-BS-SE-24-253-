@@ -10,6 +10,8 @@ const Register = () => {
     e.preventDefault();
 
     const form = Object.fromEntries(new FormData(e.target).entries());
+    const business = e.target[7].checked;
+    form.business = business;
 
     try {
       const response = await register(form);
@@ -34,7 +36,12 @@ const Register = () => {
         <FormRow type="tel" name="phone number" />
         <FormRow type="text" name="username" />
         <FormRow type="password" name="password" />
-
+        <FormRow
+          type="checkbox"
+          required={false}
+          name="business"
+          style={{ alignSelf: "center", textAlign: "center" }}
+        />
         <button type="submit" className="btn btn-block">
           Create user
         </button>

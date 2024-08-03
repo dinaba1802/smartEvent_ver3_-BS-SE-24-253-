@@ -1,31 +1,32 @@
-import { Outlet } from 'react-router-dom';
-import Wrapper from '../assets/wrappers/Dashboard';
-import { Navbar, BigSidebar, SmallSidebar } from '../components';
-import { useState, createContext, useContext } from 'react';
-import { checkDefaultTheme } from '../App';
+import { Outlet } from "react-router-dom";
+import Wrapper from "../assets/wrappers/Dashboard";
+import { Navbar, BigSidebar, SmallSidebar } from "../components";
+import { useState, createContext, useContext } from "react";
+import { checkDefaultTheme } from "../App";
+import { useAuth } from "../context/AuthContext";
+import AuthGuard from "../guards/AuthGuard";
 
 const DashboardContext = createContext();
 
 const DashboardLayout = () => {
   // temp
-  const user = { name: 'dina' };
+  const { user } = useAuth();
   const [showSidebar, setShowSidebar] = useState(false);
   const [isDarkTheme, setIsDarkTheme] = useState(checkDefaultTheme());
 
   const toggleDarkTheme = () => {
     const newDarkTheme = !isDarkTheme;
     setIsDarkTheme(newDarkTheme);
-    document.body.classList.toggle('dark-theme', newDarkTheme);
-    localStorage.setItem('darkTheme', newDarkTheme);
+    document.body.classList.toggle("dark-theme", newDarkTheme);
+    localStorage.setItem("darkTheme", newDarkTheme);
   };
-
 
   const toggleSidebar = () => {
     setShowSidebar(!showSidebar);
   };
 
   const logoutUser = async () => {
-    console.log('logout user');
+    console.log("logout user");
   };
   return (
     <DashboardContext.Provider
@@ -39,12 +40,12 @@ const DashboardLayout = () => {
       }}
     >
       <Wrapper>
-        <main className='dashboard'>
+        <main className="dashboard">
           <SmallSidebar />
           <BigSidebar />
           <div>
             <Navbar />
-            <div className='dashboard-page'>
+            <div className="dashboard-page">
               <Outlet />
             </div>
           </div>
@@ -56,4 +57,4 @@ const DashboardLayout = () => {
 
 export const useDashboardContext = () => useContext(DashboardContext);
 
-export default DashboardLayout;
+export default AuthGuard(DashboardLayout);

@@ -1,4 +1,4 @@
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import {
   HomeLayout,
@@ -13,76 +13,72 @@ import {
   Profile,
   Admin,
   Chat,
-} from './pages';
-
-
-
+  EditEvent,
+} from "./pages";
 
 export const checkDefaultTheme = () => {
-  const isDarkTheme =localStorage.getItem('darkTheme') === 'true';
-  document.body.classList.toggle('dark-theme', isDarkTheme);
+  const isDarkTheme = localStorage.getItem("darkTheme") === "true";
+  document.body.classList.toggle("dark-theme", isDarkTheme);
   return isDarkTheme;
 };
 
 checkDefaultTheme();
 
-
-
-
-
 const router = createBrowserRouter([
   {
-    path: '/',
+    path: "/",
     element: <HomeLayout />,
     errorElement: <Error />,
     children: [
       {
-        index:true,
+        index: true,
         element: <Landing />,
       },
       {
-        path: 'register',
+        path: "register",
         element: <Register />,
       },
       {
-        path: 'login',
+        path: "login",
         element: <Login />,
       },
       {
-        path: 'dashboard',
+        path: "dashboard",
         element: <DashboardLayout />,
-        children:[
+        children: [
           {
-            index:true,
-            element:<AddEvent/>
+            index: true,
+            element: <AddEvent />,
           },
           {
-            path: 'stats',
+            path: "edit-business",
+            element: <EditEvent />,
+          },
+          {
+            path: "stats",
             element: <Stats />,
           },
           {
-            path: 'all-events',
+            path: "all-events",
             element: <AllEvents />,
           },
           {
-            path: 'profile',
+            path: "profile",
             element: <Profile />,
           },
           {
-            path: 'admin',
+            path: "admin",
             element: <Admin />,
           },
           {
-            path: 'chat',
+            path: "chat",
             element: <Chat />,
           },
-        ]
+        ],
       },
     ],
   },
 ]);
-
-
 
 const App = () => {
   return <RouterProvider router={router} />;
