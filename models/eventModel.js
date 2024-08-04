@@ -1,5 +1,5 @@
-import mongoose from 'mongoose';
-import { EVENT_KIND } from '../utils/constants.js';
+import mongoose from "mongoose";
+import { EVENT_KIND } from "../utils/constants.js";
 const EventSchema = new mongoose.Schema(
   {
     event_name: String,
@@ -11,18 +11,18 @@ const EventSchema = new mongoose.Schema(
     },
     eventLocation: {
       type: String,
-      default: 'my city..',
+      default: "my city..",
     },
-    createdBy:{
+    createdBy: {
       type: mongoose.Types.ObjectId,
-      ref: 'User',
+      ref: "User",
     },
     image: {
       type: String, // Store the image as a Base64 string
       required: false,
+    },
   },
-},
   { timestamps: true }
 );
 
-export default mongoose.model('Event', EventSchema);
+export default mongoose.model("Event", EventSchema);

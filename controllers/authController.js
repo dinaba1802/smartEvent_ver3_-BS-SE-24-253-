@@ -37,7 +37,14 @@ export const register = async (req, res) => {
 
 export const me = async (req, res) => {
   try {
-    const user = await User.findById(req.user.userId);
+    const user = await User.findById(req.user.userId)
+      .populate("businessEventRequests")
+      .populate({
+        path: "businessInformation.businessEvents",
+        populate: {
+          path: "customer",
+        },
+      });
     res.status(200).json({
       data: user,
       status: StatusCodes.OK,
@@ -80,6 +87,24 @@ export const logout = (req, res) => {
   res.status(StatusCodes.OK).json({ msg: "user logged out" });
 };
 
+export const getBusiness = async (req, res) => {
+  try {
+    const bid = req.params.bid;
+    const business = await User.findById(bid);
+    res.status(StatusCodes.OK).json({
+      message: "business fetched",
+      data: business,
+      status: StatusCodes.OK,
+    });
+  } catch (e) {
+    res.status(StatusCodes.NOT_FOUND).json({
+      message: "business not found",
+      data: null,
+      status: StatusCodes.NOT_FOUND,
+    });
+  }
+};
+
 export const updateBusinessInformation = async (req, res) => {
   try {
     const userId = req.user.userId;
@@ -87,7 +112,14 @@ export const updateBusinessInformation = async (req, res) => {
       { _id: userId },
       { businessInformation: req.body }
     );
-    const user = await User.findById(req.user.userId);
+    const user = await User.findById(req.user.userId)
+      .populate("businessEventRequests")
+      .populate({
+        path: "businessInformation.businessEvents",
+        populate: {
+          path: "customer",
+        },
+      });
     return res.status(201).json({
       data: user,
       stauts: StatusCodes.CREATED,

@@ -10,6 +10,8 @@ import mongoose from "mongoose";
 import cookieParser from "cookie-parser";
 //routers
 import businessRouter from "./routes/businessRouter.js";
+import businessEventsRouter from "./routes/businessEventRouter.js";
+
 import path from "path";
 import multer from "multer";
 
@@ -41,6 +43,8 @@ app.use(express.json());
 app.use("/uploads", express.static(path.join(process.cwd(), "uploads")));
 
 app.use("/api/v3/businesses", businessRouter);
+app.use("/api/v3/business-events", businessEventsRouter);
+
 app.use("/api/v3/auth", authRouter);
 
 const storage = multer.diskStorage({
@@ -80,7 +84,11 @@ app.use(errorHandlerMiddleware);
 const port = process.env.PORT || 5100;
 
 try {
-  await mongoose.connect(process.env.MONGO_URL);
+  console.log(process.env.MONGO_URL);
+  await mongoose.connect(process.env.MONGO_URL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  });
   app.listen(port, () => {
     console.log(`server running on PORT ${port}....`);
   });

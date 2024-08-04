@@ -17,6 +17,10 @@ const UserSchema = new mongoose.Schema({
     enum: ["user", "admin", "business"],
     default: "user",
   },
+  businessEventRequests: [
+    // Outgoing requests
+    { type: mongoose.Schema.Types.ObjectId, ref: "business_events" },
+  ],
   businessInformation: {
     businessName: { type: String, required: false },
     businessAddress: { type: String, required: false },
@@ -25,6 +29,10 @@ const UserSchema = new mongoose.Schema({
     businessEmail: { type: String, required: false },
     businessAbout: { type: String, required: false },
     businessImages: [{ type: String, required: false }],
+    availableDates: [{ type: Date, required: false }],
+    businessEvents: [
+      { type: mongoose.Schema.Types.ObjectId, ref: "business_events" }, // incoming requests
+    ],
   },
   createdAt: { type: Date, required: false },
 });

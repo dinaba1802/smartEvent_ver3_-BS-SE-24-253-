@@ -14,13 +14,19 @@ const AllEvents = () => {
   }, []);
   return (
     <div>
-      <h1>All Businesses</h1>
+      <h1 className="ml-4 text-[32px]">All Businesses</h1>
 
-      {React.Children.toArray(
-        businesses.map((b) => (
-          <BusinessCard businessInfo={b.businessInformation} />
-        ))
-      )}
+      <div className="m-4">
+        {React.Children.toArray(
+          businesses.map((b) => (
+            <BusinessCard
+              businessId={b._id}
+              customerView
+              businessInfo={b.businessInformation}
+            />
+          ))
+        )}
+      </div>
     </div>
   );
 };
