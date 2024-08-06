@@ -108,6 +108,8 @@ export const getBusiness = async (req, res) => {
 export const updateBusinessInformation = async (req, res) => {
   try {
     const userId = req.user.userId;
+
+    req.body.availableDates = req.body.availableDates.map((d) => new Date(d));
     const result = await User.updateOne(
       { _id: userId },
       { businessInformation: req.body }

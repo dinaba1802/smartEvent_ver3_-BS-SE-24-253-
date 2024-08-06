@@ -15,6 +15,7 @@ import {
   Chat,
   EditEvent,
 } from "./pages";
+import BusinessPage from "./pages/BusinessPage";
 
 export const checkDefaultTheme = () => {
   const isDarkTheme = localStorage.getItem("darkTheme") === "true";
@@ -65,6 +66,10 @@ const router = createBrowserRouter([
           {
             path: "profile",
             element: <Profile />,
+          },
+          {
+            path: "business/:businessId",
+            element: <BusinessPage />,
           },
           {
             path: "admin",

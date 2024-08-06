@@ -331,3 +331,10 @@ button:disabled {
   background: #ffeeee;
   color: #d66a6a;
 }
+
+.selected {
+  color: gold;
+  font-weight: bold;
+  font-size: 20px;
+  background-color: transparent;
+}

@@ -46,7 +46,7 @@ const BusinessCard = ({ businessId, businessInfo, customerView }) => {
         <div className="self-end bg-blue-600 text-white p-3 font-bold rounded-md">
           <button
             onClick={() => {
-              nav(`/dashboard/schedule-event/${businessId}`);
+              nav(`/dashboard/business/${businessId}`);
             }}
           >
             Schedule events

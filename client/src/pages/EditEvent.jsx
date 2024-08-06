@@ -12,6 +12,10 @@ import {
 } from "react-router-dom";
 import BusinessGuard from "../guards/BusinessGuard";
 import { useAuth } from "../context/AuthContext";
+import { useEffect, useState } from "react";
+import Calendar from "react-calendar";
+import "react-carousel-animated/dist/style.css";
+
 /*import { toast } from 'react-toastify';
 import customFetch from '../utils/customFetch';*/
 
@@ -21,12 +25,14 @@ const EditEvent = () => {
     const isSubmitting = navigation.state ==='submitting';*/
   const { user, updateBusinessInformation } = useAuth();
 
+  const [selectedDates, setSelectedDates] = useState([]);
   const onEditBusinessInformation = async (e) => {
     e.preventDefault();
 
     try {
       const fileElement = document.querySelector(`#businessImage`);
       const form = Object.fromEntries(new FormData(e.target).entries());
+      form.availableDates = selectedDates.map((d) => d.getTime());
       if (fileElement.files.length > 0) {
         await updateBusinessInformation(form, fileElement.files);
       } else {
@@ -37,9 +43,24 @@ const EditEvent = () => {
       alert("Failed to update business information, please try again later");
     }
   };
+
+  useEffect(() => {
+    if (user && user.businessInformation) {
+      setSelectedDates(
+        user.businessInformation.availableDates.map((d) => new Date(d))
+      );
+    }
+  }, [user]);
   if (!user.businessInformation) {
     return <Navigate to="/dashboard/add-business"></Navigate>;
   }
+  const tileClassName = ({ date, view }) => {
+    // Add class to selected dates
+    if (selectedDates.find((d) => d.toDateString() === date.toDateString())) {
+      return "selected";
+    }
+    return null;
+  };
 
   return (
     <Wrapper>
@@ -55,11 +76,19 @@ const EditEvent = () => {
             name="businessName"
             defaultValue={user.businessInformation.businessName}
           ></FormRow>
-          <FormRow
-            type="text"
-            name="businessType"
-            defaultValue={user.businessInformation.businessType}
-          ></FormRow>
+
+          <div className="flex flex-col w-full translate-y-2 ">
+            <label className="translate-y-[-.8rem]">Business Type</label>
+            <select
+              className="p-[6px] border-[1px] border-[lightgray]"
+              name="businessType"
+            >
+              <option value={"DJ"}>DJ</option>
+              <option value={"Camera Man"}>Camera Man</option>
+              <option value={"Event hall"}>Event hall</option>
+              <option value={"Food Services"}>Food Services</option>
+            </select>
+          </div>
           <FormRow
             type="text"
             labelText="business location"
@@ -87,6 +116,7 @@ const EditEvent = () => {
           ></FormRow>
           <FormRow
             type="file"
+            required={false}
             labelText="business image"
             multifile
             name="businessImage"
@@ -100,6 +130,49 @@ const EditEvent = () => {
           Edit Business Information
         </button>
       </Form>
+
+      <Calendar
+        tileClassName={tileClassName}
+        onClickDay={(d) => {
+          const existingIndex = selectedDates.findIndex(
+            (date) =>
+              date.getYear() === d.getYear() &&
+              d.getMonth() === date.getMonth() &&
+              d.getDate() === date.getDate()
+          );
+          if (existingIndex !== -1) {
+            if (confirm("Would you like to make this date un-available?")) {
+              selectedDates.splice(existingIndex, 1);
+              setSelectedDates([...selectedDates]);
+              // call server here to make the date un-available
+            }
+          } else if (
+            confirm("Would you like to mark this date as available?")
+          ) {
+            // add the date to available dates
+            setSelectedDates([...selectedDates, d]);
+          }
+        }}
+      />
+      <div className="flex flex-row gap-2 my-3">
+        <div className="flex flex-row items-center gap-2">
+          <div
+            style={{ width: "20px", height: "20px", background: "yellow" }}
+          ></div>
+          <p>Today</p>
+        </div>
+        <div className="flex flex-row items-center gap-2">
+          <div
+            style={{
+              width: "20px",
+              height: "20px",
+              background: "gold",
+              border: "2px solid rgb(0,0,150)",
+            }}
+          ></div>
+          <p>Available dates</p>
+        </div>
+      </div>
     </Wrapper>
   );
 };
