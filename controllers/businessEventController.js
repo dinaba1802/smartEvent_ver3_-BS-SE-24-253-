@@ -12,11 +12,13 @@ export const changeBusinessEventStatus = async (req, res) => {
         status: 400,
       });
     }
+
+    let business = await UserModel.findById(businessID);
     let businessEvent = await BusinessEvent.findById(
       req.body.businessEvent
     ).populate("customer");
 
-    if (businessEvent.business !== businessID) {
+    if (businessEvent.business.toString() !== businessID.toString()) {
       return res.status(401).json({
         data: null,
         message: "Cannot alter event that is not urs",
@@ -24,11 +26,23 @@ export const changeBusinessEventStatus = async (req, res) => {
       });
     }
     businessEvent.status = status;
+    if (status === "approved") {
+      business.businessInformation.availableDates =
+        business.businessInformation.availableDates.filter(
+          (d) =>
+            !(
+              d.getDate() === businessEvent.date.getDate() &&
+              d.getMonth() === businessEvent.date.getMonth() &&
+              d.getFullYear() === businessEvent.date.getFullYear()
+            )
+        );
+      await business.save();
+    }
     businessEvent = await businessEvent.save();
     return res.status(200).json({
       data: businessEvent,
       message: "Updated status",
-      status: 401,
+      status: 200,
     });
   } catch (e) {
     console.log(e);

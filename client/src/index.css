@@ -338,3 +338,8 @@ button:disabled {
   font-size: 20px;
   background-color: transparent;
 }
+
+.unavailable {
+  color: lightgray;
+  background: gray;
+}

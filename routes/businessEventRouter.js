@@ -15,7 +15,7 @@ router.post(
   "/update-status",
   authenticateUser,
   authenticateBusinessUser,
-  businessEventController.scheduleBusinessEvent
+  businessEventController.changeBusinessEventStatus
 );
 
 export default router;

@@ -56,6 +56,21 @@ const EditEvent = () => {
   }
   const tileClassName = ({ date, view }) => {
     // Add class to selected dates
+    const existingApproved = user.businessInformation.businessEvents.find(
+      (e) => {
+        const dateOther = new Date(e.date);
+        return (
+          date.getDate() === dateOther.getDate() &&
+          dateOther.getFullYear() === date.getFullYear() &&
+          date.getMonth() === dateOther.getMonth() &&
+          e.status === "approved"
+        );
+      }
+    );
+    if (existingApproved) {
+      return "unavailable";
+    }
+
     if (selectedDates.find((d) => d.toDateString() === date.toDateString())) {
       return "selected";
     }
@@ -134,6 +149,23 @@ const EditEvent = () => {
       <Calendar
         tileClassName={tileClassName}
         onClickDay={(d) => {
+          // check if there is an approved event at this date
+
+          const approvedAtThisDate =
+            user.businessInformation.businessEvents.find((e) => {
+              const date = new Date(e.date);
+              return (
+                date.getDate() === d.getDate() &&
+                d.getFullYear() === date.getFullYear() &&
+                d.getMonth() === date.getMonth() &&
+                e.status === "approved"
+              );
+            });
+          if (approvedAtThisDate)
+            return alert(
+              "Date is unavailable for changes, an event is alreadu approved for this date"
+            );
+
           const existingIndex = selectedDates.findIndex(
             (date) =>
               date.getYear() === d.getYear() &&

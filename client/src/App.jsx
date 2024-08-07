@@ -16,6 +16,7 @@ import {
   EditEvent,
 } from "./pages";
 import BusinessPage from "./pages/BusinessPage";
+import BusinessEventRequests from "./pages/BusinessEventRequests";
 
 export const checkDefaultTheme = () => {
   const isDarkTheme = localStorage.getItem("darkTheme") === "true";
@@ -58,6 +59,10 @@ const router = createBrowserRouter([
           {
             path: "stats",
             element: <Stats />,
+          },
+          {
+            path: "event-requests",
+            element: <BusinessEventRequests />,
           },
           {
             path: "all-events",

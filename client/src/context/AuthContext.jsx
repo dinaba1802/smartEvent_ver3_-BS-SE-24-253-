@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import * as authService from "../services/auth.service";
+import * as businessService from "../services/business.service";
 const AuthContext = createContext(null);
 
 export const AuthContextProvider = ({ children }) => {
@@ -10,6 +11,38 @@ export const AuthContextProvider = ({ children }) => {
   const register = async (registerForm) => {
     const result = await authService.register(registerForm);
     return result;
+  };
+
+  const updateBusinessEventStatus = async (businessEvent, status) => {
+    try {
+      const response = await businessService.updateBusinessEventStatus(
+        status,
+        businessEvent._id
+      );
+      if (response.status === 200) {
+        let newUser = { ...user };
+        newUser.businessInformation.businessEvents =
+          newUser.businessInformation.businessEvents.map((event) =>
+            event._id.toString() == businessEvent._id.toString()
+              ? { ...event, status }
+              : event
+          );
+
+        newUser.businessInformation.availableDates =
+          newUser.businessInformation.availableDates.filter((d) => {
+            let date = new Date(d);
+            let otherDate = new Date(businessEvent.date);
+            return !(
+              date.getDate() === otherDate.getDate() &&
+              date.getMonth() === otherDate.getMonth() &&
+              date.getFullYear() === otherDate.getFullYear()
+            );
+          });
+        setUser(newUser);
+      }
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   const updateBusinessInformation = async (businessInformation, image) => {
@@ -66,6 +99,7 @@ export const AuthContextProvider = ({ children }) => {
         updateBusinessInformation,
         loading,
         logout,
+        updateBusinessEventStatus,
       }}
     >
       {children}

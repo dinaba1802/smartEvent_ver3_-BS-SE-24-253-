@@ -10,6 +10,12 @@ import { IoChatbubblesOutline } from "react-icons/io5";
 const links = [
   { text: "add business", path: ".", icon: <FaWpforms />, role: "business" },
   {
+    text: "Event requests",
+    path: "event-requests",
+    icon: <FaWpforms />,
+    role: "business",
+  },
+  {
     text: "all businesses",
     path: "all-events",
     icon: <MdQueryStats />,

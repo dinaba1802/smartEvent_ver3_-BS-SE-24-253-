@@ -1,6 +1,6 @@
 import express from "express";
-import * as reviewController from "../controllers/reviewController";
-import { authenticateUser } from "../middleware/authMiddleware";
+import * as reviewController from "../controllers/reviewController.js";
+import { authenticateUser } from "../middleware/authMiddleware.js";
 const router = express.Router();
 
 // route to creare a review

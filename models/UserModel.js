@@ -21,6 +21,7 @@ const UserSchema = new mongoose.Schema({
     // Outgoing requests
     { type: mongoose.Schema.Types.ObjectId, ref: "business_events" },
   ],
+  reviews: [{ type: mongoose.Schema.Types.ObjectId, ref: "reviews" }],
   businessInformation: {
     businessName: { type: String, required: false },
     businessAddress: { type: String, required: false },

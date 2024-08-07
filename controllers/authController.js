@@ -38,7 +38,16 @@ export const register = async (req, res) => {
 export const me = async (req, res) => {
   try {
     const user = await User.findById(req.user.userId)
-      .populate("businessEventRequests")
+      .populate({
+        path: "reviews",
+        populate: ["reviewer"],
+      })
+      .populate({
+        path: "businessEventRequests",
+        populate: {
+          path: "customer",
+        },
+      })
       .populate({
         path: "businessInformation.businessEvents",
         populate: {
@@ -90,7 +99,17 @@ export const logout = (req, res) => {
 export const getBusiness = async (req, res) => {
   try {
     const bid = req.params.bid;
-    const business = await User.findById(bid);
+    const business = await User.findById(bid)
+      .populate({
+        path: "reviews",
+        populate: ["reviewer", "business"],
+      })
+      .populate({
+        path: "businessInformation.businessEvents",
+        populate: {
+          path: "customer",
+        },
+      });
     res.status(StatusCodes.OK).json({
       message: "business fetched",
       data: business,
@@ -115,7 +134,16 @@ export const updateBusinessInformation = async (req, res) => {
       { businessInformation: req.body }
     );
     const user = await User.findById(req.user.userId)
-      .populate("businessEventRequests")
+      .populate({
+        path: "reviews",
+        populate: ["reviewer"],
+      })
+      .populate({
+        path: "businessEventRequests",
+        populate: {
+          path: "customer",
+        },
+      })
       .populate({
         path: "businessInformation.businessEvents",
         populate: {
