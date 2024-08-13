@@ -57,8 +57,8 @@ const router = createBrowserRouter([
             element: <EditEvent />,
           },
           {
-            path: "stats",
-            element: <Stats />,
+            path: "admin-panel",
+            element: <Admin />,
           },
           {
             path: "event-requests",
@@ -75,10 +75,6 @@ const router = createBrowserRouter([
           {
             path: "business/:businessId",
             element: <BusinessPage />,
-          },
-          {
-            path: "admin",
-            element: <Admin />,
           },
           {
             path: "chat",

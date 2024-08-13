@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import BusinessGuard from "../guards/BusinessGuard";
 import React from "react";
+import AuthGuard from "../guards/AuthGuard";
 
 function EventRequestCard({ eventRequest, customer = false }) {
   /*
@@ -104,7 +105,9 @@ function BusinessEventRequests() {
     <div>
       <h1>Event requests</h1>
 
-      {user.businessInformation.businessEvents &&
+      {user.role === "business" &&
+      user.businessInformation &&
+      user.businessInformation.businessEvents &&
       user.businessInformation.businessEvents.length > 0 ? (
         <div>
           <br />
@@ -143,4 +146,4 @@ function BusinessEventRequests() {
   );
 }
 
-export default BusinessGuard(BusinessEventRequests);
+export default AuthGuard(BusinessEventRequests);
