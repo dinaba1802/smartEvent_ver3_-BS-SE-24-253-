@@ -38,6 +38,9 @@ export const register = async (req, res) => {
 export const me = async (req, res) => {
   try {
     const user = await User.findById(req.user.userId)
+      // .populate({
+      //   path: "buisness",
+      // })
       .populate({
         path: "reviews",
         populate: ["reviewer"],
