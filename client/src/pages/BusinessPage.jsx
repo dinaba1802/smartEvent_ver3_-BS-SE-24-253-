@@ -200,7 +200,7 @@ const BusinessPage = () => {
         </div>
         <div className="flex flex-row items-center gap-2">
           <div
-            style={{ width: "20px", height: "20px", background: "blue" }}
+            style={{ width: "20px", height: "20px", background: "gold" }}
           ></div>
           <p>Available dates</p>
         </div>
@@ -252,6 +252,19 @@ const BusinessPage = () => {
             Submit review
           </button>
         </form>
+
+        <div className="fixed bottom-4 left-4 cursor-pointer">
+          <img
+            onClick={() => {
+              window.open(
+                `https://api.whatsapp.com/send?phone=${business.businessInformation.businessPhone}&text=Hello%20i%20reached%20you%20from%20events%20site%2C%20can%20we%20schedule%3F`
+              );
+            }}
+            src="https://cdn.pixabay.com/photo/2015/08/03/13/58/whatsapp-873316_1280.png"
+            width={70}
+            height={70}
+          />
+        </div>
       </div>
     </div>
   );

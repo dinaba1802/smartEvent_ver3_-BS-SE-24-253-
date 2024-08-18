@@ -3,11 +3,19 @@ import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
 import "./index.css";
 import axios from "axios";
+import { APIProvider } from "@vis.gl/react-google-maps";
+
 import { AuthContextProvider } from "./context/AuthContext.jsx";
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <AuthContextProvider>
-    <App />
-  </AuthContextProvider>
+  <APIProvider
+    apiKey="AIzaSyDD59VHsV0oBXv9jtiuywK5urt3kI9w_Oc"
+    authReferrerPolicy="origin"
+    libraries={["places"]}
+  >
+    <AuthContextProvider>
+      <App />
+    </AuthContextProvider>
+  </APIProvider>
 );
 
 axios.defaults.baseURL = "http://localhost:5100/";

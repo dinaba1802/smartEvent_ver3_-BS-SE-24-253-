@@ -12,9 +12,11 @@ import {
 } from "react-router-dom";
 import BusinessGuard from "../guards/BusinessGuard";
 import { useAuth } from "../context/AuthContext";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Calendar from "react-calendar";
 import "react-carousel-animated/dist/style.css";
+import { Map, useMapsLibrary } from "@vis.gl/react-google-maps";
+import axios from "axios";
 
 /*import { toast } from 'react-toastify';
 import customFetch from '../utils/customFetch';*/
@@ -26,6 +28,8 @@ const EditEvent = () => {
   const { user, updateBusinessInformation } = useAuth();
 
   const [selectedDates, setSelectedDates] = useState([]);
+
+  const places = useMapsLibrary("places");
   const onEditBusinessInformation = async (e) => {
     e.preventDefault();
 
@@ -33,6 +37,11 @@ const EditEvent = () => {
       const fileElement = document.querySelector(`#businessImage`);
       const form = Object.fromEntries(new FormData(e.target).entries());
       form.availableDates = selectedDates.map((d) => d.getTime());
+
+      form.businessLocation = {
+        lat: form.lat,
+        lng: form.lng,
+      };
       if (fileElement.files.length > 0) {
         await updateBusinessInformation(form, fileElement.files);
       } else {
@@ -136,6 +145,19 @@ const EditEvent = () => {
             multifile
             name="businessImage"
           ></FormRow>
+
+          {/*<FormRow
+            defaultValue={user.businessInformation.businessLocation?.lat ?? 0}
+            type="number"
+            labelText="business location latitude"
+            name="lat"
+          ></FormRow>
+          <FormRow
+            defaultValue={user.businessInformation.businessLocation?.lng ?? 0}
+            type="number"
+            labelText="business location longitude"
+            name="lng"
+          ></FormRow>*/}
         </div>
         <button
           type="submit"
@@ -199,12 +221,25 @@ const EditEvent = () => {
               width: "20px",
               height: "20px",
               background: "gold",
-              border: "2px solid rgb(0,0,150)",
+              //border: "2px solid rgb(0,0,150)",
             }}
           ></div>
           <p>Available dates</p>
         </div>
       </div>
+      <br />
+      <br />
+
+      {/*user.businessInformation &&
+        user.businessInformation.businessLocation && (
+          <Map
+            style={{ width: "400px", height: "400px" }}
+            defaultCenter={user.businessInformation.businessLocation}
+            defaultZoom={8}
+            gestureHandling={"greedy"}
+            disableDefaultUI={true}
+          />
+        )*/}
     </Wrapper>
   );
 };

@@ -30,7 +30,7 @@ const UserSchema = new mongoose.Schema({
     businessEmail: { type: String, required: false },
     businessAbout: { type: String, required: false },
     businessImages: [{ type: String, required: false }],
-    useGeolocation: { type: Boolean, default: false }, //geo location
+    businessLocation: { lat: { type: Number }, lng: { type: Number } },
     availableDates: [{ type: Date, required: false }],
     businessEvents: [
       { type: mongoose.Schema.Types.ObjectId, ref: "business_events" }, // incoming requests

@@ -43,7 +43,10 @@ const BusinessCard = ({ businessId, businessInfo, customerView }) => {
       </div>
 
       {customerView && (
-        <div className="self-end bg-blue-600 text-white p-3 font-bold rounded-md">
+        <div
+          className="self-end text-white p-3 font-bold rounded-md"
+          style={{ backgroundColor: "rgb(29, 160, 172)" }}
+        >
           <button
             onClick={() => {
               nav(`/dashboard/business/${businessId}`);

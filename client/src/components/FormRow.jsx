@@ -24,6 +24,7 @@ const FormRow = ({
         />
       ) : (
         <input
+          step=".00000000001"
           type={type}
           multiple={multifile}
           id={name}

@@ -28,7 +28,6 @@ const links = [
     role: "all",
   },
   { text: "profile", path: "profile", icon: <ImProfile />, role: "user" },
-  { text: "chat", path: "chat", icon: <IoChatbubblesOutline />, role: "user" },
 ];
 
 export default links;

@@ -9,10 +9,9 @@ import {
   Error,
   AddEvent,
   Stats,
-  AllEvents,
+  AllBusinesses,
   Profile,
   Admin,
-  Chat,
   EditEvent,
 } from "./pages";
 import BusinessPage from "./pages/BusinessPage";
@@ -66,7 +65,7 @@ const router = createBrowserRouter([
           },
           {
             path: "all-events",
-            element: <AllEvents />,
+            element: <AllBusinesses />,
           },
           {
             path: "profile",
@@ -75,10 +74,6 @@ const router = createBrowserRouter([
           {
             path: "business/:businessId",
             element: <BusinessPage />,
-          },
-          {
-            path: "chat",
-            element: <Chat />,
           },
         ],
       },
