@@ -9,12 +9,13 @@ import {
   Error,
   AddEvent,
   Stats,
-  AllEvents,
+  AllBusinesses,
   Profile,
   Admin,
-  Chat,
   EditEvent,
 } from "./pages";
+import BusinessPage from "./pages/BusinessPage";
+import BusinessEventRequests from "./pages/BusinessEventRequests";
 
 export const checkDefaultTheme = () => {
   const isDarkTheme = localStorage.getItem("darkTheme") === "true";
@@ -55,24 +56,24 @@ const router = createBrowserRouter([
             element: <EditEvent />,
           },
           {
-            path: "stats",
-            element: <Stats />,
+            path: "admin-panel",
+            element: <Admin />,
+          },
+          {
+            path: "event-requests",
+            element: <BusinessEventRequests />,
           },
           {
             path: "all-events",
-            element: <AllEvents />,
+            element: <AllBusinesses />,
           },
           {
             path: "profile",
             element: <Profile />,
           },
           {
-            path: "admin",
-            element: <Admin />,
-          },
-          {
-            path: "chat",
-            element: <Chat />,
+            path: "business/:businessId",
+            element: <BusinessPage />,
           },
         ],
       },

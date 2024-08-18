@@ -3,8 +3,14 @@ import BusinessCard from "../components/BusinessCard";
 import { useAuth } from "../context/AuthContext";
 import ReactCarousel, { AFTER, CENTER, BEFORE } from "react-carousel-animated";
 
+import React, { useState, useEffect } from "react";
+import Calendar from "react-calendar";
+import "react-calendar/dist/Calendar.css";
+import axios from "axios";
+
 import "react-carousel-animated/dist/style.css";
 import ImageSlider from "../components/ImageSlider";
+
 const Profile = () => {
   const { user } = useAuth();
 
@@ -16,7 +22,10 @@ const Profile = () => {
         <h4 className="p-2">Business info</h4>
         {user.businessInformation ? (
           <div>
-            <BusinessCard businessInfo={user.businessInformation} />
+            <BusinessCard
+              businessId={user._id}
+              businessInfo={user.businessInformation}
+            />
             <ImageSlider images={user.businessInformation.businessImages} />
           </div>
         ) : (
@@ -52,6 +61,7 @@ const Profile = () => {
       </div>
     );
   }
+
   return (
     <div>
       <h1>Profile</h1>
@@ -77,4 +87,5 @@ const Profile = () => {
     </div>
   );
 };
+
 export default Profile;

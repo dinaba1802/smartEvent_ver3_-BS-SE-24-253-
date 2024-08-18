@@ -5,6 +5,7 @@ import {
   logout,
   me,
   updateBusinessInformation,
+  getBusiness,
 } from "../controllers/authController.js";
 import { validateRegisterInput } from "../middleware/validationMiddleware.js";
 import { validateLoginInput } from "../middleware/validationMiddleware.js";
@@ -16,6 +17,7 @@ import {
 
 const router = Router();
 
+router.get("/get-business/:bid", getBusiness);
 router.post("/register", validateRegisterInput, register);
 router.post("/login", validateLoginInput, login);
 router.get("/me", authenticateUser, me);

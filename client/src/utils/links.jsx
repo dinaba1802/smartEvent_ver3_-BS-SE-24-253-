@@ -10,20 +10,24 @@ import { IoChatbubblesOutline } from "react-icons/io5";
 const links = [
   { text: "add business", path: ".", icon: <FaWpforms />, role: "business" },
   {
+    text: "Event requests",
+    path: "event-requests",
+    icon: <FaWpforms />,
+    role: "all",
+  },
+  {
+    text: "Admin Panel",
+    path: "admin-panel",
+    icon: <FaWpforms />,
+    role: "admin",
+  },
+  {
     text: "all businesses",
     path: "all-events",
     icon: <MdQueryStats />,
     role: "all",
   },
-  { text: "stats", path: "stats", icon: <IoBarChartSharp />, role: "user" },
   { text: "profile", path: "profile", icon: <ImProfile />, role: "user" },
-  {
-    text: "admin",
-    path: "admin",
-    icon: <MdAdminPanelSettings />,
-    role: "admin",
-  },
-  { text: "chat", path: "chat", icon: <IoChatbubblesOutline />, role: "user" },
 ];
 
 export default links;

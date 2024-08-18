@@ -7,6 +7,6 @@ const ReviewScheme = mongoose.Schema({
   rating: { type: Number, require: true, default: 5 }, // 1-5
 });
 
-const Review = mongoose.model("Review", ReviewScheme);
+const Review = mongoose.model("reviews", ReviewScheme);
 
 export default Review;
