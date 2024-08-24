@@ -3,19 +3,9 @@ import { useAuth } from "../context/AuthContext";
 import BusinessGuard from "../guards/BusinessGuard";
 import React from "react";
 import AuthGuard from "../guards/AuthGuard";
+import UserModel from "../../../models/UserModel";
 
 function EventRequestCard({ eventRequest, customer = false }) {
-  /*
-customer: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
-  business: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
-  date: { type: Date, required: true },
-  status: {
-    type: String,
-    enum: ["approved", "rejected", "pending"],
-    default: "pending",
-  },
-  */
-
   const { updateBusinessEventStatus } = useAuth();
 
   const approve = () => {
@@ -24,6 +14,13 @@ customer: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
   const reject = () => {
     updateBusinessEventStatus(eventRequest, "rejected");
   };
+
+  // Ensure business name is correctly accessed
+  const businessName =
+    eventRequest.business.businessInformation?.businessName ||
+    "Unknown Business";
+
+  console.log(eventRequest);
   return (
     <div
       className="bg-white px-4 py-6 text-[18px] w-[350px] rounded-lg flex gap-2 flex-col items-start"
@@ -33,11 +30,12 @@ customer: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
         Customer:{" "}
         {eventRequest.customer.name + " " + eventRequest.customer.lastName}
       </p>
+      <p className="font-bold">Business: {businessName}</p>
+
       <p className="text-gray-400">
         {" "}
         Date: {new Date(eventRequest.date).toDateString()}
       </p>
-
       <p className="font-bold text-[16px] self-start">
         Status :
         <b
@@ -104,6 +102,8 @@ function BusinessEventRequests() {
   return (
     <div>
       <h1>Event requests</h1>
+      <h2> </h2>
+      <h2>My Incomming requests</h2>
 
       {user.role === "business" &&
       user.businessInformation &&
@@ -111,7 +111,6 @@ function BusinessEventRequests() {
       user.businessInformation.businessEvents.length > 0 ? (
         <div>
           <br />
-          <h2>My Incomming requests</h2>
           <div className="flex flex-col gap-2 my-16">
             {React.Children.toArray(
               user.businessInformation.businessEvents.map((eventRequest) => (

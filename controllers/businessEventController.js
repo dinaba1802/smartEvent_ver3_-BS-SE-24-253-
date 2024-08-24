@@ -21,7 +21,7 @@ export const changeBusinessEventStatus = async (req, res) => {
     if (businessEvent.business.toString() !== businessID.toString()) {
       return res.status(401).json({
         data: null,
-        message: "Cannot alter event that is not urs",
+        message: "Cannot alter event that is not yours",
         status: 401,
       });
     }

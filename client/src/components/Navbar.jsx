@@ -21,9 +21,7 @@ const Navbar = () => {
         </button>
         <div>
           <Logo />
-          <h4 className="logo-text">
-            Dashboard - {normalizeLocationName(location.pathname)}
-          </h4>
+          <h4 className="logo-text">Dashboard</h4>
         </div>
         <div className="btn-container">
           <ThemeToggle />

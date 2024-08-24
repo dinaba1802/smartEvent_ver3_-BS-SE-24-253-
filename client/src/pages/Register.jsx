@@ -51,6 +51,9 @@ const Register = () => {
           <Link to="/login" className="member-btn">
             Login
           </Link>
+          <Link to="/" className="btn register-link">
+            back to homepage
+          </Link>
         </p>
       </form>
     </Wrapper>

@@ -46,6 +46,11 @@ const Admin = () => {
           legendToggle
           options={{
             is3D: true,
+            slices: {
+              0: { color: "blue" }, // Pending requests
+              1: { color: "yellow" }, // Declined requests
+              2: { color: "red" }, // Approved requests
+            },
           }}
         />
       </div>

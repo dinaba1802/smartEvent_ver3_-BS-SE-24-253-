@@ -38,20 +38,29 @@ export const register = async (req, res) => {
 export const me = async (req, res) => {
   try {
     const user = await User.findById(req.user.userId)
+      //.populate({
+      //  path: "business",
+      //})
+
       .populate({
         path: "reviews",
         populate: ["reviewer"],
       })
       .populate({
         path: "businessEventRequests",
-        populate: {
-          path: "customer",
-        },
+        populate: { path: "customer" },
       })
       .populate({
         path: "businessInformation.businessEvents",
         populate: {
           path: "customer",
+        },
+      })
+      .populate({
+        path: "businessEventRequests",
+        populate: {
+          path: "business",
+          select: "businessInformation.businessName", // Include business name
         },
       });
     res.status(200).json({
@@ -109,7 +118,8 @@ export const getBusiness = async (req, res) => {
         populate: {
           path: "customer",
         },
-      });
+      })
+      .select("businessInformation.businessName"); // Ensure businessName is selected
     res.status(StatusCodes.OK).json({
       message: "business fetched",
       data: business,
