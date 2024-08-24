@@ -1,35 +1,36 @@
-import main from '../assets/images/main.svg';
-import { Link } from 'react-router-dom';
-import logo from '../assets/images/logo.svg';
-import { Logo } from '../components';
-import styled from 'styled-components';
+import main from "../assets/images/main.svg";
+import { Link } from "react-router-dom";
+import logo from "../assets/images/logo.svg";
+import { Logo } from "../components";
+import styled from "styled-components";
 const Landing = () => {
   return (
     <StyledWrapper>
       <nav>
         <Logo />
       </nav>
-      <div className='container page'>
+      <div className="container page">
         {/* info */}
-        <div className='info'>
+        <div className="info">
           <h1>
-           <span>smartEvent</span> app
+            <span>smartEvent</span>
           </h1>
           <p>
-            At smartEvent, we understand that every event is unique.
-            Register or login to join our app, that will help you organize the best event.
-            You can connect to the system as a user interested in planning an event, or as 
-            a user interested in offering his services as an event hall owner, DJ, designer 
-            and any other business that contributes to the event planning industry.
+            At smartEvent, we understand that every event is unique. Register or
+            login to join our app, that will help you organize the best event.
+            You can connect to the system as a user interested in planning an
+            event, or as a user interested in offering his services as an event
+            hall owner, DJ, designer and any other business that contributes to
+            the event planning industry.
           </p>
-          <Link to='/register' className='btn register-link'>
+          <Link to="/register" className="btn register-link">
             Register
           </Link>
-          <Link to='/login' className='btn'>
+          <Link to="/login" className="btn">
             Login
           </Link>
         </div>
-        <img src={main} alt='job hunt' className='img main-img' />
+        <img src={main} alt="job hunt" className="img main-img" />
       </div>
     </StyledWrapper>
   );
